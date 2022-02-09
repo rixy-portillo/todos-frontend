@@ -9,8 +9,6 @@ export const getTodos = async () => {
     try {
         const res = await fetch("/todos/all")
         const data = await res.json()
-        console.log(data)
-
         return data as { todos: Todo[] }
     } catch (e) {
         console.error(e)

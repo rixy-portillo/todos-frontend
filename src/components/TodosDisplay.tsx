@@ -1,11 +1,10 @@
-import { Button, Paper, TextField } from "@mui/material";
+import { Box, Grid } from "@mui/material";
 import { useEffect, useState } from "react";
 import { addTodo, deleteTodo, getTodos, Todos } from '../data/todos';
-import ListItem from "./ListItem";
+import TodosInput from "./TodosInput";
+import TodosList from "./TodosList";
 
-
-//everything in here will be rerendered
-const ListInput = () => {
+const TodosDisplay = () => {
     const [todos, setTodos] = useState<Todos>([])
 
     const addItem = async (text: string) => {
@@ -37,21 +36,21 @@ const ListInput = () => {
         getTodos().then(data => { data && setTodos(data.todos) })
     }, [])
 
-    useEffect(() => {
-        window.localStorage.setItem("todos", JSON.stringify(todos))
-    }, [todos])
-
     return (
-        <>
-            <TextField label="Text" variant="outlined" onChange={e => updateInput(e.target.value)} value={input}></TextField>
-            <Button onClick={submit}>Add</Button>
-            <Paper>
-                {todos?.map(todo => {
-                    return <ListItem key={todo._id} todo={todo} deleteItem={deleteItem} />
-                })}
-            </Paper>
-        </>
+        <Grid container spacing={12} justifyContent={"center"}>
+            <Grid item xs={12}>
+                <Box sx={{ height: "100%", width: "100%" }}>
+                    <TodosInput input={input} updateInput={updateInput} submit={submit} />
+                </Box>
+            </Grid>
+            <Grid item xs={12}>
+                <Box sx={{ height: "100%", width: "100%" }}>
+                    <TodosList todos={todos} deleteItem={deleteItem} />
+                </Box>
+            </Grid >
+        </Grid >
+
     )
 }
 
-export default ListInput
+export default TodosDisplay

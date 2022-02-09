@@ -1,12 +1,13 @@
+import { Box } from '@mui/material';
 import React from 'react';
 import './App.css';
-import { default as ListInput } from './components/ListInput';
+import TodosDisplay from './components/TodosDisplay';
 
 function App() {
   return (
-    <>
-      <ListInput />
-    </>
+    <Box sx={{ minHeight: "100vh", padding: 8 }}>
+      <TodosDisplay />
+    </Box>
   );
 }
 
